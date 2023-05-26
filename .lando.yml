@@ -1,0 +1,21 @@
+name: laravel-blog-app
+recipe: laravel
+config:
+  php: '8.2'
+  composer_version: '2.5.4'
+  webroot: public
+  via: nginx
+  xdebug: true
+services:
+  phpmyadmin:
+    type: phpmyadmin
+    hosts:
+      - database
+  mailhog:
+    type: mailhog
+    portforward: true
+    hogfrom:
+      - appserver
+proxy:
+  phpmyadmin:
+    - phpmyadmin.laravel-blog-app.lndo.site
