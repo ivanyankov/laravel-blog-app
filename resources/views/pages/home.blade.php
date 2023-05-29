@@ -21,6 +21,9 @@
         </article>
     @endforeach
     </div>
+    <div class="pagination mx-auto mt-16">
+    {{ $posts->onEachSide(5)->links() }}
+    </div>
   </div>
 </div>
 @endsection
