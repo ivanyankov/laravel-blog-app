@@ -12,7 +12,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('pages.home', ['posts' => Post::paginate(10)]);
+        return view('pages.home', ['posts' => Post::orderBy('created_at', 'desc')->paginate(10)]);
     }
 
     /**

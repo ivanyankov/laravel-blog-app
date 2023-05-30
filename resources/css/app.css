@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .pagination nav div:nth-child(1) a {
     margin-right: 16px;
 }

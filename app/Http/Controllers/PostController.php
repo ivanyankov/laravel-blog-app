@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : RedirectResponse
     {
-        //
+        return redirect('/');
     }
 
     /**
@@ -21,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.post.create');
     }
 
     /**
@@ -29,15 +32,18 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $request->validated();
+        Post::create($request->all());
+
+        return redirect('/');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post) : View
     {
-        //
+        return view('pages.post.show', ["post" => $post]);
     }
 
     /**
@@ -51,9 +57,12 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post) : RedirectResponse
     {
-        //
+        $request->validated();
+        $post->update($request->all());
+
+        return redirect('posts/' . $post->id);
     }
 
     /**
@@ -61,6 +70,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Post::find($post->id)->delete();
+
+        return redirect('/');
     }
 }
